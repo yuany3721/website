@@ -7,7 +7,7 @@ const data: any = reactive({
     currentPath: window.location.pathname,
     routes: {
         "/": markRaw(HelloWorld),
-        "/Gadget": markRaw(Gadget),
+        "/gadget": markRaw(Gadget),
     },
 });
 
