@@ -1,0 +1,144 @@
+<template>
+    <el-card
+        :class="archived ? 'card archived' : 'card'"
+        @click="open"
+        :style="hideArchived && archived ? 'display:none;' : ''"
+    >
+        <template #header>
+            <div :class="newCard ? 'card-header new' : 'card-header'">
+                <template v-if="newCard">
+                    <svg height="1em" width="1em" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            fill="#2172f3"
+                            d="M512 64h64v192h-64V64zm0 576h64v192h-64V640zM160 480v-64h192v64H160zm576 0v-64h192v64H736zM249.856 199.04l45.248-45.184L430.848 289.6 385.6 334.848 249.856 199.104zM657.152 606.4l45.248-45.248 135.744 135.744-45.248 45.248L657.152 606.4zM114.048 923.2 68.8 877.952l316.8-316.8 45.248 45.248-316.8 316.8zM702.4 334.848 657.152 289.6l135.744-135.744 45.248 45.248L702.4 334.848z"
+                        ></path>
+                    </svg>
+                </template>
+                <span v-html="title"></span>
+                <span v-if="archived" class="archived-title">(Archived)</span>
+            </div>
+        </template>
+        <p class="card-message" v-html="message"></p>
+        <div class="author" v-if="author?.length != undefined && author?.length > 1">
+            <el-divider content-position="left">Author</el-divider>
+            <span v-html="author"></span>
+        </div>
+        <el-divider content-position="left">
+            <template v-if="start?.length == undefined || start?.length < 1">Tech</template>
+            <template v-else>{{ start }}</template>
+        </el-divider>
+        <div class="tag-container" v-for="tech in techs">
+            <el-tag size="small">{{ tech }}</el-tag>
+        </div>
+    </el-card>
+</template>
+
+<script setup lang="ts">
+import { toRefs } from "vue";
+import { hideArchived } from "./card";
+
+const props = defineProps({
+    title: String, // card header
+    message: String, // html string --> card content
+    href: String, // card link to (can be blank)
+    start: String, // start time string, default Tech
+    techs: Array, // tech list
+    author: String, // author info, default blank
+    newCard: Boolean, // new card selection, default blank for not new
+    archived: Boolean, // archived card, default blank for normal style
+});
+function open() {
+    if (props.href?.length == undefined || props.href?.length < 1) return;
+    if (props.archived) return;
+    window.open(props.href);
+    // console.log(props.href);
+}
+// console.log(props.title, props.archived);
+
+const { title, message, newCard, start, author, techs, archived } = toRefs(props);
+</script>
+
+<style scoped>
+.card {
+    width: 420px;
+    margin: 10px;
+    cursor: pointer;
+}
+.archived {
+    cursor: default !important;
+    opacity: 0.7;
+}
+.archived:hover {
+    box-shadow: 0 1px 8px 0 #666 !important;
+    transition: 0.5s;
+}
+.archived-title {
+    margin-left: 0.5em;
+    color: #293e61;
+    font-size: small;
+}
+.card:hover {
+    box-shadow: 0 1px 8px 0 #2172f3;
+    transition: 0.5s;
+}
+.card-header {
+    font-weight: bolder;
+    display: flex;
+    align-content: center;
+    line-height: 1em;
+}
+.card .author {
+    font-size: smaller;
+}
+.card-message {
+    margin: 0;
+    font-family: "element-icons";
+}
+.card-message:deep(p) {
+    margin: 0 0 0.3em 0;
+}
+.card-message:deep(a) {
+    text-decoration: none;
+    color: inherit;
+    color: #2172f3;
+}
+.card-message:deep(small) {
+    color: rgba(0, 0, 0, 0.6);
+}
+.card-message:deep(a:hover) {
+    color: #1b0ff5;
+}
+.card-message:deep(ul) {
+    margin: 0;
+    padding-left: 20px;
+}
+.new {
+    color: #2172f3;
+}
+.tag-container {
+    display: inline-flex;
+    padding: 0 0.4em 0 0;
+}
+.card:deep(.el-divider__text.is-left) {
+    font-size: x-small;
+    left: 8px;
+    padding: 0 5px;
+}
+.card:deep(.el-divider.el-divider--horizontal) {
+    height: 2px;
+    background-color: #4775ff;
+    width: 225px;
+    margin: 20px 0;
+}
+.author:deep(.el-divider__text.is-left) {
+    font-size: x-small;
+    left: 8px;
+    padding: 0 5px;
+}
+.author:deep(.el-divider.el-divider--horizontal) {
+    height: 2px;
+    background-color: #4775ff;
+    width: 135px;
+    margin: 20px 0;
+}
+</style>
