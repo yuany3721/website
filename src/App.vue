@@ -16,7 +16,7 @@ window.addEventListener("hashchange", () => {
 });
 
 const currentView = computed(() => {
-    return data.routes[data.currentPath || "/"] || HelloWorld;
+    return data.routes[data.currentPath.slice(1) || "/"] || HelloWorld;
 });
 </script>
 
