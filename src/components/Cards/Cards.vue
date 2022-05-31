@@ -115,6 +115,7 @@ import { hideArchived } from "./card";
     padding: 0;
     height: auto !important;
     display: flex;
+    opacity: 0.8;
 }
 .archived-switch {
     padding: 0.5em;

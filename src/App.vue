@@ -28,5 +28,8 @@ const currentView = computed(() => {
 body {
     padding: 0;
     margin: 0;
+    background-image: url("https://api.dujin.org/bing/1920.php");
+    background-attachment: fixed;
+    background-size: cover;
 }
 </style>

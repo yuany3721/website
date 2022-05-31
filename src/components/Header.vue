@@ -37,7 +37,7 @@ const title = ref("website-yuany3721");
     /* height: 100%; */
     font-size: 20px;
     font-weight: 500;
-    color: black;
+    text-shadow: 0px 0px 3px white;
 }
 .title:hover,
 .nav:hover {
@@ -52,6 +52,7 @@ const title = ref("website-yuany3721");
 }
 .title:deep(.el-link) {
     font-size: smaller;
+    color: black;
 }
 .title:deep(.el-link:hover) {
     color: #2172f3;
@@ -60,6 +61,7 @@ const title = ref("website-yuany3721");
     margin: 0 0.8em 0 0;
     padding: 0.2em 0.5em;
     font-size: smaller;
+    color: black;
     /* border: 1px solid black; */
 }
 .nav:deep(.el-link:hover) {

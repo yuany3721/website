@@ -63,6 +63,7 @@ const { title, message, newCard, start, author, techs, archived } = toRefs(props
     width: 420px;
     margin: 10px;
     cursor: pointer;
+    opacity: 0.9;
 }
 .archived {
     cursor: default !important;
