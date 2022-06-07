@@ -29,6 +29,7 @@ const title = ref("website-yuany3721");
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid grey;
+    background-color: rgba(255, 255, 255, 0.75);
 }
 .title,
 .nav {
