@@ -6,7 +6,7 @@
                 message="<p>一个使用VuePress搭建的静态博客，支持katex数学公式。</p>
                 <p>主题魔改自优秀的<a href='https://vuepress-theme-reco.recoluan.com/'>Vuepress-theme-reco</a>。</p>"
                 :techs="['VuePress']"
-                href="http://blog.yuany3721.top"
+                href="http://blog.yuany3721.site"
                 start="2022.05"
                 newCard
             />

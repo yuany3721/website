@@ -11,7 +11,7 @@
             <div class="nav">
                 <el-link href="./"> 首页 </el-link>
                 <el-link href="#/gadget"> 小玩意 </el-link>
-                <el-link href="https://blog.yuany3721.top/updatelog/"> 更新日志 </el-link>
+                <el-link href="https://blog.yuany3721.site/updatelog/"> 更新日志 </el-link>
             </div>
         </el-main>
     </el-container>
