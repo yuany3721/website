@@ -2,7 +2,7 @@
     <div class="footer">
         <div class="text">
             互联网ICP备案：
-            <el-link type="info" href="http://www.beian.miit.gov.cn/">鄂ICP备19027833号-1 </el-link>
+            <el-link type="info" href="http://www.beian.miit.gov.cn/">鄂ICP备2022017895号-1 </el-link>
         </div>
         <div class="text">
             公安联网备案：

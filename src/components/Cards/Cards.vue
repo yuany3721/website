@@ -62,14 +62,14 @@
                 message="<p>一个使用原生HTML5+CSS3盒模型实现的响应式静态网页。</p>
                 <p>感谢<a href='http://www.iotcn.org.cn/'>中国物联网</a>和<a href='http://www.chinacloud.cn/'>云计算世界</a>公开的资源。</p>"
                 :techs="['html']"
-                href="https://wlw.yuany3721.top/"
+                href="https://wlw.yuany3721.site/"
                 start="2019.12《网站设计与开发》"
             />
             <Card
                 title="悦读频道"
                 message="<p>一个使用Dreamweaver2017和Table布局实现的静态网页。</p>"
                 :techs="['Dreamweaver']"
-                href="https://ydpd.yuany3721.top/index.html"
+                href="https://ydpd.yuany3721.site/index.html"
                 author="小婷婷<span style='color:red;'>❤</span>"
                 start="2019.12《网站设计与开发》"
             />
