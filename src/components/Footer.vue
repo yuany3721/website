@@ -7,7 +7,7 @@
         <div class="text">
             公安联网备案：
             <el-link type="info" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011102003698">
-                <img src="../assets/beian.png" /> 鄂公网安备 42011102003698号
+                <img src="../assets/beian.png" /> 鄂公网安备 42011102005054号
             </el-link>
         </div>
         <div class="text">
