@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import Card from "./CardsMain/Card.vue";
+import { hideArchived } from "./CardsMain/card";
+</script>
+
 <template>
     <el-container>
         <el-main class="card-wrap">
@@ -102,13 +107,6 @@
     </el-container>
 </template>
 
-<script setup lang="ts">
-import Card from "./Card.vue";
-import { hideArchived } from "./card";
-// console.log(hideArchived.value);
-// hideArchived.value = true;
-// console.log(hideArchived.value);
-</script>
 <style scoped>
 .footer {
     margin: 0;

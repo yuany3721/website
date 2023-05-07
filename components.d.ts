@@ -5,22 +5,30 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Card: typeof import('./src/components/Cards/Card.vue')['default']
-    Cards: typeof import('./src/components/Cards/Cards.vue')['default']
+    Card: typeof import('./src/components/CardsMain/Card.vue')['default']
+    Cards: typeof import('./src/components/CardsMain/Cards.vue')['default']
+    CardView: typeof import('./src/components/CardView.vue')['default']
     ElAffix: typeof import('element-plus/es/el-affix')['default']
     ElBacktop: typeof import('element-plus/es/el-backtop')['default']
     ElButton: typeof import('element-plus/es/el-button')['default']
     ElCard: typeof import('element-plus/es/el-card')['default']
+    ElCascaderPanel: typeof import('element-plus/es/el-cascader-panel')['default']
     ElContainer: typeof import('element-plus/es/el-container')['default']
     ElDivider: typeof import('element-plus/es/el-divider')['default']
     ElFooter: typeof import('element-plus/es/el-footer')['default']
     ElInput: typeof import('element-plus/es/el-input')['default']
     ElLink: typeof import('element-plus/es/el-link')['default']
     ElMain: typeof import('element-plus/es/el-main')['default']
+    ElOption: typeof import('element-plus/es/el-option')['default']
+    ElSelect: typeof import('element-plus/es/el-select')['default']
     ElSwitch: typeof import('element-plus/es/el-switch')['default']
     ElTag: typeof import('element-plus/es/el-tag')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
+    InputCar: typeof import('./src/components/PlateLoc/input-car.vue')['default']
+    KeyboardCar: typeof import('./src/components/PlateLoc/keyboard-car.vue')['default']
+    KeyboardCarData: typeof import('./src/components/PlateLoc/keyboard-car-data.vue')['default']
+    PlateLoc: typeof import('./src/components/PlateLoc/PlateLoc.vue')['default']
   }
 }
 

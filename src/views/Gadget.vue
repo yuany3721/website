@@ -1,6 +1,5 @@
 <template>
-    <Header />
-    <el-card class="card">
+    <CardView>
         <template #header> <h2>奇怪的生成器</h2> </template>
         <el-input placeholder="点击按钮生成" v-model="text" :disabled="false"> </el-input>
         <el-button type="primary" round @click="getName">奇怪的姓名</el-button>
@@ -11,14 +10,11 @@
         <br />
         <br />
         <el-button type="primary" round @click="copy">点击复制</el-button>
-    </el-card>
-
-    <Footer />
+    </CardView>
 </template>
 
 <script setup lang="ts">
-import Footer from "../components/Footer.vue";
-import Header from "../components/Header.vue";
+import CardView from "../components/CardView.vue";
 import { reactive, toRefs } from "vue";
 import { ElMessage } from "element-plus";
 import "element-plus/lib/theme-chalk/el-message.css";
@@ -1882,9 +1878,5 @@ const { text } = toRefs(data);
 .el-input {
     margin-top: 1em;
     margin-bottom: 1em;
-}
-.card {
-    width: 85%;
-    margin: 10px auto;
 }
 </style>
