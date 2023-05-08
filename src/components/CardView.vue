@@ -16,7 +16,7 @@
 .el-container {
     max-width: 800px;
     display: block;
-    margin: 0.5em auto;
+    margin: 1em auto;
     background-color: aliceblue;
     padding: 0.5em;
     border-radius: 1em 1em 1em 1em;

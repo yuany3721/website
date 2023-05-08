@@ -1,1 +1,0 @@
-function n(e){return{all:e=e||new Map,on:function(t,o){var i=e.get(t);i&&i.push(o)||e.set(t,[o])},off:function(t,o){var i=e.get(t);i&&i.splice(i.indexOf(o)>>>0,1)},emit:function(t,o){(e.get(t)||[]).slice().map(function(i){i(o)}),(e.get("*")||[]).slice().map(function(i){i(t,o)})}}}export{n as o};
