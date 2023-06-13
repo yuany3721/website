@@ -8,7 +8,8 @@ import Footer from "./components/Footer.vue";
 fetchBackgroundImageUrl();
 async function fetchBackgroundImageUrl() {
     try {
-        const response = await fetch("/bing-image");
+        // const response = await fetch("/bing-image");
+        const response = await fetch("https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1");
         const data = await response.json();
         // console.log(data);
         const imageUrl = "https://cn.bing.com" + data.images[0].url;

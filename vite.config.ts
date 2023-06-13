@@ -43,5 +43,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/bing-image/, '/HPImageArchive.aspx?format=js&idx=0&n=1')
       }
     }
-  }
+  },
+  base: '/website-v3/',
 })
