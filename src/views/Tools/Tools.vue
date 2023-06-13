@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PlateLoc from "./PlateLoc/PlateLoc.vue";
 import NumberConverter from "./NumberConverter.vue";
+import PowerConv from "./PowerConv.vue";
 
 // import { ref } from "vue";
 
@@ -18,6 +19,7 @@ import NumberConverter from "./NumberConverter.vue";
     </el-container> -->
     <PlateLoc />
     <NumberConverter />
+    <PowerConv />
 </template>
 
 <style scoped>

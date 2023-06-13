@@ -4,24 +4,22 @@
 
         <el-form>
             <el-form-item label="输入数字">
-                <el-input v-model="inputNumber"></el-input>
+                <el-input v-model="inputNumber" @input="convert"></el-input>
             </el-form-item>
 
-            <el-form-item label="原进制">
-                <el-select v-model="sourceBase" placeholder="选择进制">
-                    <el-option v-for="base in bases" :key="base" :label="`Base ${base}`" :value="base"></el-option>
-                </el-select>
-            </el-form-item>
+            <div class="form-row">
+                <el-form-item label="原进制" class="flex-item">
+                    <el-select v-model="sourceBase" placeholder="选择进制" @change="convert">
+                        <el-option v-for="base in bases" :key="base" :label="`Base ${base}`" :value="base"></el-option>
+                    </el-select>
+                </el-form-item>
 
-            <el-form-item label="目标进制">
-                <el-select v-model="targetBase" placeholder="选择进制">
-                    <el-option v-for="base in bases" :key="base" :label="`Base ${base}`" :value="base"></el-option>
-                </el-select>
-            </el-form-item>
-
-            <el-form-item>
-                <el-button type="primary" @click="convert">转换</el-button>
-            </el-form-item>
+                <el-form-item label="目标进制" class="flex-item">
+                    <el-select v-model="targetBase" placeholder="选择进制" @change="convert">
+                        <el-option v-for="base in bases" :key="base" :label="`Base ${base}`" :value="base"></el-option>
+                    </el-select>
+                </el-form-item>
+            </div>
 
             <el-form-item label="转换结果">
                 <el-input v-model="result" readonly></el-input>
@@ -37,55 +35,42 @@ import { ref } from "vue";
 
 import CardView from "../../components/CardView.vue";
 
-const bases = [2, 8, 10, 16];
+const bases: number[] = [2, 8, 10, 16];
+const inputNumber = ref<string>("");
+const sourceBase = ref<number>(10);
+const targetBase = ref<number>(16);
+const result = ref<string>("");
+const error = ref<string>("");
 
-const inputNumber = ref("");
-const sourceBase = ref(10);
-const targetBase = ref(16);
-const result = ref("");
-const error = ref("");
-
-function convert() {
+function convert(): void {
     error.value = "";
 
-    // 输入校验
-    const number = Number(inputNumber.value);
+    const source: number = sourceBase.value;
+    const target: number = targetBase.value;
+
+    // 根据源进制将输入的数字转换为十进制
+    const number: number = parseInt(inputNumber.value, source);
     if (isNaN(number)) {
         error.value = "输入的数字无效";
         return;
     }
 
-    const source = sourceBase.value;
-    const target = targetBase.value;
-
-    // 原进制校验
-    if (!isValidBase(number, source)) {
-        error.value = `输入的数字不是有效的 ${source} 进制数`;
-        return;
-    }
-
-    const converted = number.toString(target);
+    // 转换为目标进制
+    const converted: string = number.toString(target);
     result.value = converted.toUpperCase();
-}
-
-function isValidBase(number: number, base: number): boolean {
-    const numberString = number.toString();
-    const validDigits = getValidDigits(base);
-    const regex = new RegExp(`^[${validDigits}]+$`);
-    return regex.test(numberString);
-}
-
-function getValidDigits(base: number): string {
-    let validDigits = "";
-    for (let i = 0; i < base; i++) {
-        validDigits += i.toString(base);
-    }
-    return validDigits.toUpperCase();
 }
 </script>
 
 <style scoped>
 .custom-error {
     color: red;
+}
+.form-row {
+    display: flex;
+}
+
+.flex-item {
+    flex: 1;
+    margin-right: 10px;
 }
 </style>
