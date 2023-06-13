@@ -1,35 +1,28 @@
 <script setup lang="ts">
-import { reactive, computed, markRaw } from "vue";
+// import { reactive, computed, markRaw } from "vue";
+// import { createRouter, createWebHistory } from 'vue-router'
 
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 
-import HelloWorld from "./views/HelloWorld/HelloWorld.vue";
-import Gadget from "./views/Gadget.vue";
-import Tools from "./views/Tools/Tools.vue";
-
-const data: any = reactive({
-    currentPath: window.location.pathname,
-    routes: {
-        "/": markRaw(HelloWorld),
-        "/gadget": markRaw(Gadget),
-        "/tools": markRaw(Tools),
-    },
-});
-
-window.addEventListener("hashchange", () => {
-    data.currentPath = window.location.hash;
-});
-
-const currentView = computed(() => {
-    return data.routes[data.currentPath.slice(1) || "/"] || HelloWorld;
-});
+fetchBackgroundImageUrl();
+async function fetchBackgroundImageUrl() {
+    try {
+        const response = await fetch("/bing-image");
+        const data = await response.json();
+        // console.log(data);
+        const imageUrl = "https://cn.bing.com" + data.images[0].url;
+        document.body.style.backgroundImage = `url(${imageUrl})`;
+    } catch (error) {
+        console.error("Failed to fetch background image:", error);
+    }
+}
 </script>
 
 <template>
     <Header />
     <el-container>
-        <el-main> <component :is="currentView" /></el-main>
+        <el-main> <router-view /></el-main>
     </el-container>
     <Footer />
     <el-backtop :right="20" :bottom="20" class="totop" />
@@ -39,7 +32,7 @@ const currentView = computed(() => {
 body {
     padding: 0;
     margin: 0;
-    background-image: url("https://api.dujin.org/bing/1920.php");
+    /* background-image: url("https://api.dujin.org/bing/1920.php"); */
     background-attachment: fixed;
     background-size: cover;
 }

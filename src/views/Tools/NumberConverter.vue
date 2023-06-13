@@ -1,5 +1,5 @@
 <template>
-    <CardView>
+    <CardView title="进制转换工具">
         <template #header><h2>进制转换工具</h2></template>
 
         <el-form>

@@ -1,5 +1,5 @@
 <template>
-    <CardView>
+    <CardView title="车牌号归属地查询">
         <template #header><h2>车牌号归属地查询</h2></template>
 
         <el-input v-model="input" placeholder="输入车牌后缀" class="input-with-select" @input="onchange">

@@ -1,5 +1,5 @@
 <template>
-    <CardView>
+    <CardView title="光功率单位转换工具">
         <template #header><h2>光功率单位转换工具</h2></template>
 
         <el-form>

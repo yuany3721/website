@@ -34,5 +34,14 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
-  ]
+  ],
+  server: {
+    proxy: {
+      '/bing-image': {
+        target: 'https://cn.bing.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/bing-image/, '/HPImageArchive.aspx?format=js&idx=0&n=1')
+      }
+    }
+  }
 })

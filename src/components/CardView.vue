@@ -1,7 +1,10 @@
 <template>
     <el-container>
         <el-card>
-            <template #header> <slot name="header"></slot> </template>
+            <template #header>
+                <a :href="'#' + title" class="anchor">#</a>
+                <a :name="title" class="anchor-title"><slot name="header"></slot></a>
+            </template>
             <slot></slot>
         </el-card>
         <div class="ref">
@@ -10,9 +13,33 @@
     </el-container>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { toRefs } from "vue";
+const props = defineProps({
+    title: String, // card header
+});
+const { title } = toRefs(props);
+</script>
 
 <style scoped>
+a {
+    text-decoration: none;
+}
+.anchor {
+    display: inline-block;
+    position: relative;
+    /* margin-right: 0.2em; */
+    font-size: x-large;
+    right: 10px;
+    opacity: 0;
+    transition: 0.5s;
+}
+.anchor-title {
+    display: inline-block;
+}
+.anchor:hover {
+    opacity: 1;
+}
 .el-container {
     max-width: 800px;
     display: block;
