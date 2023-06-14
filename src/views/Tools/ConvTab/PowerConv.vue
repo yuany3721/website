@@ -1,43 +1,37 @@
 <template>
-    <CardView title="光功率单位转换工具">
-        <template #header><h2>光功率单位转换工具</h2></template>
-
-        <el-form>
-            <el-form-item label="W">
-                <el-input v-model="W" @input="convert(1)" class="input"></el-input>
+    <el-form>
+        <el-form-item label="W">
+            <el-input v-model="W" @input="convert(1)" class="input"></el-input>
+        </el-form-item>
+        <div class="form-row">
+            <el-form-item label="dBm" class="flex-item">
+                <el-input v-model="dBm" @input="convert(2)" class="input"></el-input>
             </el-form-item>
+            <el-form-item label="dBW" class="flex-item">
+                <el-input v-model="dBW" @input="convert(3)" class="input"></el-input>
+            </el-form-item>
+        </div>
+        <el-form-item label="单光子功率计算">
+            <el-switch v-model="count" />
+        </el-form-item>
+        <template v-if="count">
             <div class="form-row">
-                <el-form-item label="dBm" class="flex-item">
-                    <el-input v-model="dBm" @input="convert(2)" class="input"></el-input>
+                <el-form-item label="波长(nm)" class="flex-item">
+                    <el-input v-model="lambda" @input="convert(4)" class="input"></el-input>
                 </el-form-item>
-                <el-form-item label="dBW" class="flex-item">
-                    <el-input v-model="dBW" @input="convert(3)" class="input"></el-input>
+                <el-form-item label="单光子能量(J)" class="flex-item">
+                    <el-input v-model="J" @input="convert(5)" class="input"></el-input>
                 </el-form-item>
             </div>
-            <el-form-item label="单光子功率计算">
-                <el-switch v-model="count" />
+            <el-form-item label="每秒光子数">
+                <el-input v-model="cps" @input="convert(6)" class="input"></el-input>
             </el-form-item>
-            <template v-if="count">
-                <div class="form-row">
-                    <el-form-item label="波长(nm)" class="flex-item">
-                        <el-input v-model="lambda" @input="convert(4)" class="input"></el-input>
-                    </el-form-item>
-                    <el-form-item label="单光子能量(J)" class="flex-item">
-                        <el-input v-model="J" @input="convert(5)" class="input"></el-input>
-                    </el-form-item>
-                </div>
-                <el-form-item label="每秒光子数">
-                    <el-input v-model="cps" @input="convert(6)" class="input"></el-input>
-                </el-form-item>
-            </template>
-        </el-form>
-    </CardView>
+        </template>
+    </el-form>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
-
-import CardView from "../../components/CardView.vue";
+import { ref } from "vue";
 
 const lambda = ref<number>(1550);
 const J = ref<number>(1.28e-28);

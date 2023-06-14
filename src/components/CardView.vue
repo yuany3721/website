@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-card>
-            <template #header>
+            <template #header class="elh">
                 <a :href="'#' + title" class="anchor">#</a>
                 <a :name="title" class="anchor-title"><slot name="header"></slot></a>
             </template>
@@ -49,11 +49,14 @@ a {
     border-radius: 1em 1em 1em 1em;
     box-shadow: 1px 1px 5px 1px lightslategrey;
 }
-
 .el-card {
     background-color: inherit;
     box-shadow: none;
     border: none;
+}
+.el-card ::v-deep .el-card__header {
+    padding: 0;
+    padding-left: 1em;
 }
 .ref {
     color: lightgray;
