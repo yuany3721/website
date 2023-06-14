@@ -19,7 +19,7 @@
                 中国互联网违法和不良信息举报中心
             </el-link>
         </div>
-        <div class="support">lcl提供技术支持</div>
+        <div class="support">yuany3721 @ 2023</div>
     </div>
 </template>
 

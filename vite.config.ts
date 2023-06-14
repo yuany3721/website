@@ -44,5 +44,4 @@ export default defineConfig({
       }
     }
   },
-  base: '/website-v3/',
 })

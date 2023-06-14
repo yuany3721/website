@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
 
 // 创建路由实例
 const router = createRouter({
-  history: createWebHistory('/website-v3/'),
+  history: createWebHistory(),
   routes
 });
 

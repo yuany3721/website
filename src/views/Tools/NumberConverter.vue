@@ -73,4 +73,7 @@ function convert(): void {
     flex: 1;
     margin-right: 10px;
 }
+.flex-item .el-select {
+    min-width: 8em;
+}
 </style>
