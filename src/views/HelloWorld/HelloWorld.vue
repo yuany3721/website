@@ -11,7 +11,7 @@ import Card from "./CardsMain/Card.vue";
                 <p>支持设置多项工作、低优先级工作、待跟进任务，按时间线呈现内容</p>"
                 :techs="['Vite', 'Vue']"
                 href="https://plan.yuany3721.site"
-                start="2022.06"
+                start="2023.06"
                 newCard
             />
             <Card
@@ -29,7 +29,6 @@ import Card from "./CardsMain/Card.vue";
                 :techs="['LDA算法', 'Vue', 'Spring']"
                 start="2021.04毕业设计"
                 stop="由于相关平台爬取规则改变等原因，平台demo于2021年9月暂停展示"
-                archived
             />
             <Card
                 title="培训班作业管理系统"
@@ -39,7 +38,6 @@ import Card from "./CardsMain/Card.vue";
                 author="董怡婷 刘艺瀛 阳灵鑫 李承霖"
                 start="2020.12《信息系统设计与开发》"
                 stop="由于服务器迁移，于2022.12停止服务"
-                archived
             />
             <Card
                 title="在线协同标注平台"
@@ -51,7 +49,6 @@ import Card from "./CardsMain/Card.vue";
                 author="李承霖 阳灵鑫 董怡婷 孙丽晨 杜鸿伦 由丽萍"
                 start="2020.04"
                 stop="由于语料具有与社会环境强关联的时效性，于2021.07关闭平台"
-                archived
             />
             <Card
                 title="用户权限管理"
@@ -59,7 +56,6 @@ import Card from "./CardsMain/Card.vue";
                 <p>提供了极其简陋的用户注册、登录、权限控制和一个胡乱设计的积分系统。</p>
                 <p><small>为什么不直接用开源的单点登录系统呢</small></p>"
                 start="2020.03"
-                archived
             />
             <Card
                 title="中文文献全文检索系统"
@@ -70,7 +66,6 @@ import Card from "./CardsMain/Card.vue";
                 :techs="['双向最大匹配', '布尔逻辑检索', 'Vue', 'Spring']"
                 start="2020.01《信息组织、存储与检索》"
                 stop="由于服务器迁移，于2022.12停止服务"
-                archived
             />
             <Card
                 title="物联网简介"
@@ -94,7 +89,6 @@ import Card from "./CardsMain/Card.vue";
                 <p>提供了文件上传、下载及相关统计功能。</p>
                 <p><small>为什么不直接搭一个网盘呢</small></p>"
                 start="2019.11"
-                archived
             />
             <Card
                 title="火锅店"
@@ -105,7 +99,6 @@ import Card from "./CardsMain/Card.vue";
                 href="http://glxxxt.yuany3721.top"
                 start="2019.10《管理信息系统》"
                 stop="由于服务器迁移，于2022.12停止服务"
-                archived
             />
         </el-main>
     </el-container>

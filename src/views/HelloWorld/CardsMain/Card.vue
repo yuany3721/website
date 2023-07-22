@@ -1,5 +1,5 @@
 <template>
-    <el-card :class="archived ? 'card archived' : 'card'" @click="open">
+    <el-card :class="stop?.length != undefined && stop?.length > 1 ? 'card archived' : 'card'" @click="open">
         <template #header>
             <div :class="newCard ? 'card-header new' : 'card-header'">
                 <template v-if="newCard">
@@ -11,7 +11,6 @@
                     </svg>
                 </template>
                 <span v-html="title"></span>
-                <span v-if="archived" class="archived-title">(Archived)</span>
             </div>
         </template>
         <p class="card-message" v-html="message"></p>
@@ -44,7 +43,6 @@ const props = defineProps({
     techs: Array, // tech list
     author: String, // author info, default blank
     newCard: Boolean, // new card selection, default blank for not new
-    archived: Boolean, // archived card, default blank for normal style
 });
 function open(event: MouseEvent) {
     if ((event.target as HTMLElement).tagName === "A") {
@@ -56,13 +54,13 @@ function open(event: MouseEvent) {
         return; // 阻止冒泡
     }
     if (props.href?.length == undefined || props.href?.length < 1) return;
-    if (props.archived) return;
+    if (props.stop?.length != undefined && props.stop?.length > 1) return;
     window.open(props.href);
     // console.log(props.href);
 }
 // console.log(props.title, props.archived);
 
-const { title, message, newCard, start, author, techs, archived } = toRefs(props);
+const { title, message, newCard, start, stop, author, techs } = toRefs(props);
 </script>
 
 <style scoped>
@@ -79,11 +77,6 @@ const { title, message, newCard, start, author, techs, archived } = toRefs(props
 .archived:hover {
     box-shadow: 0 1px 8px 0 #666 !important;
     transition: 0.5s;
-}
-.archived-title {
-    margin-left: 0.5em;
-    color: #293e61;
-    font-size: small;
 }
 .card:hover {
     box-shadow: 0 1px 8px 0 #2172f3;
