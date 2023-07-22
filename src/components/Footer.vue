@@ -19,7 +19,7 @@
                 中国互联网违法和不良信息举报中心
             </el-link>
         </div>
-        <div class="support">yuany3721 @ 2023</div>
+        <div class="support"><a href="mailto:yuany3721@qq.com" class="mailto">yuany3721</a> @ 2021-2023</div>
     </div>
 </template>
 
@@ -42,5 +42,9 @@
 .support {
     font-size: smaller;
     color: grey;
+}
+.mailto {
+    text-decoration: none;
+    color: white;
 }
 </style>

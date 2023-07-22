@@ -6,13 +6,11 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CardView: typeof import('./src/components/CardView.vue')['default']
-    ElAffix: typeof import('element-plus/es/el-affix')['default']
     ElBacktop: typeof import('element-plus/es/el-backtop')['default']
     ElButton: typeof import('element-plus/es/el-button')['default']
     ElCard: typeof import('element-plus/es/el-card')['default']
     ElContainer: typeof import('element-plus/es/el-container')['default']
     ElDivider: typeof import('element-plus/es/el-divider')['default']
-    ElFooter: typeof import('element-plus/es/el-footer')['default']
     ElForm: typeof import('element-plus/es/el-form')['default']
     ElFormItem: typeof import('element-plus/es/el-form-item')['default']
     ElInput: typeof import('element-plus/es/el-input')['default']

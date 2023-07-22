@@ -10,6 +10,7 @@
 
             <div class="nav">
                 <el-link href="./"> 首页 </el-link>
+                <el-link href="https://home.yuany3721.site/"> 导航 </el-link>
                 <el-link href="/gadget"> 小玩意 </el-link>
                 <el-link href="/tools"> 工具 </el-link>
                 <el-link href="https://blog.yuany3721.site/updatelog/"> 更新日志 </el-link>

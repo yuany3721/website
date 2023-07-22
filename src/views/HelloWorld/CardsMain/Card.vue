@@ -1,9 +1,5 @@
 <template>
-    <el-card
-        :class="archived ? 'card archived' : 'card'"
-        @click="open"
-        :style="hideArchived && archived ? 'display:none;' : ''"
-    >
+    <el-card :class="archived ? 'card archived' : 'card'" @click="open">
         <template #header>
             <div :class="newCard ? 'card-header new' : 'card-header'">
                 <template v-if="newCard">
@@ -24,9 +20,12 @@
             <span v-html="author"></span>
         </div>
         <el-divider content-position="left">
-            <template v-if="start?.length == undefined || start?.length < 1">Tech</template>
-            <template v-else>{{ start }}</template>
+            <template v-if="start?.length != undefined && start?.length > 1">{{ start }}</template>
         </el-divider>
+        <template v-if="stop">
+            <p class="card-message"><small v-html="stop"></small></p>
+            <br />
+        </template>
         <div class="tag-container" v-for="tech in techs">
             <el-tag size="small">{{ tech }}</el-tag>
         </div>
@@ -35,19 +34,27 @@
 
 <script setup lang="ts">
 import { toRefs } from "vue";
-import { hideArchived } from "./card";
 
 const props = defineProps({
     title: String, // card header
     message: String, // html string --> card content
     href: String, // card link to (can be blank)
-    start: String, // start time string, default Tech
+    start: String, // start time string
+    stop: String, // stop time string
     techs: Array, // tech list
     author: String, // author info, default blank
     newCard: Boolean, // new card selection, default blank for not new
     archived: Boolean, // archived card, default blank for normal style
 });
-function open() {
+function open(event: MouseEvent) {
+    if ((event.target as HTMLElement).tagName === "A") {
+        event.preventDefault();
+        const href = (event.target as HTMLElement)?.getAttribute("href");
+        if (href) {
+            window.open(href);
+        }
+        return; // 阻止冒泡
+    }
     if (props.href?.length == undefined || props.href?.length < 1) return;
     if (props.archived) return;
     window.open(props.href);
