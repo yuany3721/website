@@ -1,5 +1,8 @@
 <template>
-    <el-card :class="stop?.length != undefined && stop?.length > 1 ? 'card archived' : 'card'" @click="open">
+    <el-card
+        :class="archived || (stop?.length != undefined && stop?.length > 1) ? 'card archived' : 'card'"
+        @click="open"
+    >
         <template #header>
             <div :class="newCard ? 'card-header new' : 'card-header'">
                 <template v-if="newCard">
@@ -43,6 +46,7 @@ const props = defineProps({
     techs: Array, // tech list
     author: String, // author info, default blank
     newCard: Boolean, // new card selection, default blank for not new
+    archived: Boolean,
 });
 function open(event: MouseEvent) {
     if ((event.target as HTMLElement).tagName === "A") {
@@ -54,13 +58,13 @@ function open(event: MouseEvent) {
         return; // 阻止冒泡
     }
     if (props.href?.length == undefined || props.href?.length < 1) return;
-    if (props.stop?.length != undefined && props.stop?.length > 1) return;
+    if (props.archived || (props.stop?.length != undefined && props.stop?.length > 1)) return;
     window.open(props.href);
     // console.log(props.href);
 }
 // console.log(props.title, props.archived);
 
-const { title, message, newCard, start, stop, author, techs } = toRefs(props);
+const { title, message, newCard, start, stop, author, techs, archived } = toRefs(props);
 </script>
 
 <style scoped>

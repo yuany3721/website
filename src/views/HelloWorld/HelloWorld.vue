@@ -56,6 +56,7 @@ import Card from "./CardsMain/Card.vue";
                 <p>提供了极其简陋的用户注册、登录、权限控制和一个胡乱设计的积分系统。</p>
                 <p><small>为什么不直接用开源的单点登录系统呢</small></p>"
                 start="2020.03"
+                archived
             />
             <Card
                 title="中文文献全文检索系统"
@@ -89,6 +90,7 @@ import Card from "./CardsMain/Card.vue";
                 <p>提供了文件上传、下载及相关统计功能。</p>
                 <p><small>为什么不直接搭一个网盘呢</small></p>"
                 start="2019.11"
+                archived
             />
             <Card
                 title="火锅店"
