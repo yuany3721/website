@@ -71,14 +71,16 @@ import Card from "./CardsMain/Card.vue";
             <Card
                 title="物联网简介"
                 message="<p>一个使用原生HTML5+CSS3盒模型实现的响应式静态网页。</p>
-                <p>感谢<a href='http://www.iotcn.org.cn/'>中国物联网</a>和<a href='http://www.chinacloud.cn/'>云计算世界</a>公开的资源。</p>"
+                <p>感谢<a href='http://www.iotcn.org.cn/'>中国物联网</a>和<a href='http://www.chinacloud.cn/'>云计算世界</a>公开的资源。</p>
+                <p><small>开源于<a href='https://github.com/yuany3721/wlw'>https://github.com/yuany3721/wlw</a></small></p>"
                 :techs="['html5', 'css3']"
                 href="https://wlw.yuany3721.site/"
                 start="2019.12《网站设计与开发》"
             />
             <Card
                 title="悦读频道"
-                message="<p>一个使用Dreamweaver2017和Table布局实现的静态网页。</p>"
+                message="<p>一个使用Dreamweaver2017和Table布局实现的静态网页。</p>
+                <p><small>开源于<a href='https://github.com/yuany3721/ydpd'>https://github.com/yuany3721/ydpd</a></small></p>"
                 :techs="['Dreamweaver']"
                 href="https://ydpd.yuany3721.site/index.html"
                 author="小婷婷<span style='color:red;'>❤</span>"
@@ -96,7 +98,8 @@ import Card from "./CardsMain/Card.vue";
                 title="火锅店"
                 message="<p>一个简单的管理信息系统。</p>
                 <p>包括食材采购统计、点菜统计等功能。</p>
-                <p><small>于2022.04使用Vue3、Java11重构</small></p>"
+                <p><small>于2022.04使用Vue3、Java11重构</small></p>
+                <p><small>开源于<a href='https://github.com/yuany3721/glxxxt'>https://github.com/yuany3721/glxxxt</a></small></p>"
                 :techs="['Vue', 'Spring']"
                 href="http://glxxxt.yuany3721.top"
                 start="2019.10《管理信息系统》"
