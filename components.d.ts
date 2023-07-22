@@ -19,6 +19,8 @@ declare module '@vue/runtime-core' {
     ElOption: typeof import('element-plus/es/el-option')['default']
     ElSelect: typeof import('element-plus/es/el-select')['default']
     ElSwitch: typeof import('element-plus/es/el-switch')['default']
+    ElTabPane: typeof import('element-plus/es/el-tab-pane')['default']
+    ElTabs: typeof import('element-plus/es/el-tabs')['default']
     ElTag: typeof import('element-plus/es/el-tag')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
