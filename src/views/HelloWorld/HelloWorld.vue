@@ -5,6 +5,15 @@ import Card from "./CardsMain/Card.vue";
 <template>
     <el-container>
         <el-main class="card-wrap">
+            <!-- <Card
+                title="文件中转站"
+                message="<p>简洁清晰的每周工作内容总结与计划展示页面</p>
+                <p>支持设置多项工作、低优先级工作、待跟进任务，按时间线呈现内容</p>"
+                :techs="['Vite', 'Vue']"
+                href="https://plan.yuany3721.site"
+                start="2023.06"
+                newCard
+            /> -->
             <Card
                 title="周计划"
                 message="<p>简洁清晰的每周工作内容总结与计划展示页面</p>
@@ -12,7 +21,8 @@ import Card from "./CardsMain/Card.vue";
                 :techs="['Vite', 'Vue']"
                 href="https://plan.yuany3721.site"
                 start="2023.06"
-                newCard
+                stop="根本没法坚持更新！于2024年2月停止更新并于5月下架"
+                archived
             />
             <Card
                 title="Vuepress-reco-yuany3721"

@@ -10,10 +10,10 @@
 
             <div class="nav">
                 <el-link href="./"> 首页 </el-link>
-                <el-link href="https://home.yuany3721.site/"> 导航 </el-link>
+                <el-link href="https://blog.yuany3721.site/"> 博客 </el-link>
+                <el-link href="https://home.yuany3721.site/"> 导航页 </el-link>
                 <el-link href="/gadget"> 小玩意 </el-link>
                 <el-link href="/tools"> 工具 </el-link>
-                <el-link href="https://blog.yuany3721.site/updatelog/"> 更新日志 </el-link>
             </div>
         </el-main>
     </el-container>
@@ -22,6 +22,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const title = ref("website-yuany3721");
+const activeIndex = ref("1");
+const handleSelect = (key: string, keyPath: string[]) => {
+    console.log(key, keyPath);
+};
 </script>
 
 <style scoped>
@@ -33,6 +37,7 @@ const title = ref("website-yuany3721");
     border-bottom: 1px solid grey;
     background-color: rgba(255, 255, 255, 0.75);
 }
+
 .title,
 .nav {
     display: inline-flex;
@@ -65,7 +70,6 @@ const title = ref("website-yuany3721");
     padding: 0.2em 0.5em;
     font-size: smaller;
     color: black;
-    /* border: 1px solid black; */
 }
 .nav:deep(.el-link:hover) {
     color: #2172f3;
