@@ -1,47 +1,50 @@
+import { fileURLToPath, URL } from 'node:url'
+
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
+
+import path from 'path'
+
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
 
-// https://vitejs.dev/config/
+const pathSrc = path.resolve(__dirname, 'src')
+
+// https://vite.dev/config/
 export default defineConfig({
-  build:{
-    outDir: "docs",
-    rollupOptions:{
-        output: {
-            manualChunks(id) {
-                if (id.includes('node_modules')) {
-                    return id.toString().split('node_modules/')[1].split('/')[0].toString();
-                }
-            },
-            chunkFileNames: (chunkInfo) => {
-              const facadeModuleId = chunkInfo.facadeModuleId
-                ? chunkInfo.facadeModuleId.split('/')
-                : [];
-              const fileName =
-                facadeModuleId[facadeModuleId.length - 2] || '[name]';
-              return `js/${fileName}/[name].[hash].js`;
-            }
-        }
-    }
-  },
   plugins: [
     vue(),
+    vueDevTools(),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      imports: ['vue'],
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+      ],
+      dts: path.resolve(pathSrc, 'auto-imports.d.ts'),
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          enabledCollections: ['ep'],
+        }),
+      ],
+      dts: path.resolve(pathSrc, 'components.d.ts'),
+    }),
+    Icons({
+      autoInstall: true,
     }),
   ],
-  server: {
-    proxy: {
-      '/bing-image': {
-        target: 'https://cn.bing.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/bing-image/, '/HPImageArchive.aspx?format=js&idx=0&n=1')
-      }
-    }
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    },
   },
 })

@@ -1,47 +1,44 @@
-<script setup lang="ts">
-// import { reactive, computed, markRaw } from "vue";
-// import { createRouter, createWebHistory } from 'vue-router'
-
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
-
-fetchBackgroundImageUrl();
-async function fetchBackgroundImageUrl() {
-    try {
-        // const response = await fetch("/bing-image");
-        const response = await fetch("https://yuany3721.site/bing-pic");
-        const data = await response.json();
-        // console.log(data);
-        const imageUrl = "https://cn.bing.com" + data.images[0].url;
-        document.body.style.backgroundImage = `url(${imageUrl})`;
-    } catch (error) {
-        console.error("Failed to fetch background image:", error);
-    }
-}
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <Header />
-    <el-container>
-        <el-main> <router-view /></el-main>
+    <el-container class="container" :style="{ boxShadow: `var(--el-box-shadow)` }">
+        <el-header>
+            <Header />
+        </el-header>
+        <!-- <AuthLoading v-if="!authorized" /> -->
+
+        <!-- <el-aside width="100px" v-if="authorized">
+            <el-menu :default-active="activeIndex" @select="handleSelect" :router="true">
+                <el-menu-item index="/note">note</el-menu-item>
+                <el-menu-item index="/cost">cost</el-menu-item>
+            </el-menu>
+        </el-aside> -->
+
+        <el-main>
+            <router-view />
+        </el-main>
+        <!-- <el-footer> -->
+        <Footer />
+        <!-- </el-footer> -->
     </el-container>
-    <Footer />
-    <el-backtop :right="20" :bottom="20" class="totop" />
 </template>
 
-<style>
-body {
-    padding: 0;
+<style scoped>
+.el-header,
+.el-container,
+.el-main {
     margin: 0;
-    /* background-image: url("https://api.dujin.org/bing/1920.php"); */
-    background-attachment: fixed;
-    background-size: cover;
+    padding: 0;
 }
-.totop {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+.el-header {
+    position: relative;
 }
-.totop:hover {
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
-    background-color: #f1f5fb;
+
+.el-aside {
+    border-right: 1px solid #eee;
+}
+
+.el-menu {
+    border-right: none;
 }
 </style>

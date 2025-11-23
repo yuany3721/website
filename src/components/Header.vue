@@ -11,8 +11,8 @@
             <div class="nav">
                 <el-link href="./"> 首页 </el-link>
                 <el-link href="https://blog.yuany3721.site/"> 博客 </el-link>
-                <el-link href="https://home.yuany3721.site/"> 导航页 </el-link>
-                <el-link href="/gadget"> 小玩意 </el-link>
+                <el-link href="/note"> 随记 </el-link>
+                <!-- <el-link href="/gadget"> 小玩意 </el-link> -->
                 <el-link href="/tools"> 工具 </el-link>
             </div>
         </el-main>
@@ -20,12 +20,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-const title = ref("website-yuany3721");
-const activeIndex = ref("1");
+import { ref } from 'vue'
+const title = ref('website-yuany3721')
+const activeIndex = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath);
-};
+    console.log(key, keyPath)
+}
 </script>
 
 <style scoped>

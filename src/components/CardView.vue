@@ -54,7 +54,7 @@ a {
     box-shadow: none;
     border: none;
 }
-.el-card ::v-deep .el-card__header {
+:deep(.el-card .el-card__header) {
     padding: 0;
     padding-left: 1em;
 }

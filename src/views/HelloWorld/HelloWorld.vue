@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import Card from "./CardsMain/Card.vue";
+import Card from './CardsMain/Card.vue'
+import { fetchBackgroundImageUrl } from '@/global'
+fetchBackgroundImageUrl()
 </script>
 
 <template>
     <el-container>
         <el-main class="card-wrap">
-            <!-- <Card
-                title="文件中转站"
-                message="<p>简洁清晰的每周工作内容总结与计划展示页面</p>
-                <p>支持设置多项工作、低优先级工作、待跟进任务，按时间线呈现内容</p>"
-                :techs="['Vite', 'Vue']"
-                href="https://plan.yuany3721.site"
-                start="2023.06"
+            <Card
+                title="随记"
+                message="<p>简洁方便的随手记工具，支持Tag标记、模糊搜索</p>"
+                :techs="['Vite', 'Vue3', 'TypeScripts']"
+                href="https://yuany3721.site/note"
+                start="2025.11"
                 newCard
-            /> -->
+            />
             <Card
                 title="周计划"
                 message="<p>简洁清晰的每周工作内容总结与计划展示页面</p>
@@ -27,7 +28,8 @@ import Card from "./CardsMain/Card.vue";
             <Card
                 title="Vuepress-reco-yuany3721"
                 message="<p>一个使用VuePress搭建的静态博客，支持katex数学公式。</p>
-                <p>主题魔改自优秀的<a href='https://vuepress-theme-reco.recoluan.com/'>Vuepress-theme-reco</a>。</p>"
+                <p>主题魔改自优秀的<a href='https://vuepress-theme-reco.recoluan.com/'>Vuepress-theme-reco</a>。</p>
+                <p>2024.12迁移主题至<a href='https://theme-plume.vuejs.press/'>vuepress-theme-plume</a></p>"
                 :techs="['VuePress']"
                 href="https://blog.yuany3721.site"
                 start="2022.05"
