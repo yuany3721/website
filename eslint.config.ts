@@ -19,4 +19,22 @@ export default defineConfigWithVueTs(
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
   skipFormatting,
+
+  {
+    plugins: {
+      vue: pluginVue,
+    },
+    rules: {
+      // disable multi word rule files
+      'vue/multi-word-component-names': [
+        "error",
+        {
+          ignores: [
+            "App",
+            "Header",
+            "Footer"
+          ]
+        }],
+    },
+  }
 )

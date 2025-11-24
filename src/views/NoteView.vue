@@ -32,7 +32,6 @@ interface NoteDialogConfig {
     tags: string[]
     tagOptions: ListItem[]
     loading: boolean
-    mdTextAreaContent: HTMLTextAreaElement | null
     mdPreviewShow: boolean
 }
 
@@ -50,7 +49,7 @@ const filterLoading = ref(false)
 const totalNotes = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(20)
-
+const mdTextAreaRef = ref<HTMLTextAreaElement|null>()
 const noteDialogConfig = reactive<NoteDialogConfig>({
     visible: false,
     content: '',
@@ -59,9 +58,9 @@ const noteDialogConfig = reactive<NoteDialogConfig>({
     tags: [],
     tagOptions: [],
     loading: false,
-    mdTextAreaContent: null,
     mdPreviewShow: true,
 })
+
 
 function getTableDataByPage(
     pageNum: number,
@@ -220,7 +219,7 @@ const handlePageChange = (val: number) => {
 // eslint-disable-next-line
 const handleRowClick = (row: TableRow, column: TableColumnCtx<TableRow>, event: Event): void => {
     // 点击行事件，弹出note详情对话框
-    // console.log(row.id, row.content, row.tags, row.created_at)
+    console.log(row.id, row.content, row.tags, row.created_at)
     noteDialogConfig.visible = true
     noteDialogConfig.content = row.content
     noteDialogConfig.tags = row.tags
@@ -240,7 +239,7 @@ const handleMdClick = (event: MouseEvent) => {
     if (noteDialogConfig.loading) return
     noteDialogConfig.mdPreviewShow = false
     nextTick(() => {
-        noteDialogConfig.mdTextAreaContent?.focus()
+        mdTextAreaRef.value?.focus()
     })
 }
 
@@ -395,7 +394,7 @@ const hanldeNoteDelete = () => {
             <!-- <h1>This is an note page</h1> -->
             <el-button type="primary" plain @click="handleNewNoteClick">+ New Note</el-button>
             <el-table :data="tableData" table-layout="fixed" @row-click="handleRowClick">
-                <el-table-column prop="id" label="ID" width="80" />
+                <!--<el-table-column prop="id" label="ID" width="80" /> -->
                 <el-table-column prop="content" show-overflow-tooltip>
                     <template #header>
                         <p>Note</p>
@@ -464,7 +463,7 @@ const hanldeNoteDelete = () => {
                 <el-form :model="noteDialogConfig">
                     <el-form-item label="Content" label-width="5em">
                         <el-input
-                            ref="noteDialogConfig.mdTextAreaContent"
+                            ref="mdTextAreaRef"
                             v-model="noteDialogConfig.content"
                             :autosize="{ minRows: 2, maxRows: 10 }"
                             type="textarea"

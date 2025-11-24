@@ -28,7 +28,7 @@
             <p class="card-message"><small v-html="stop"></small></p>
             <br />
         </template>
-        <div class="tag-container" v-for="tech in techs">
+        <div class="tag-container" v-for="tech in techs" v-bind:key="tech">
             <el-tag size="small">{{ tech }}</el-tag>
         </div>
     </el-card>
@@ -43,7 +43,7 @@ const props = defineProps({
     href: String, // card link to (can be blank)
     start: String, // start time string
     stop: String, // stop time string
-    techs: Array, // tech list
+    techs: Array<string>, // tech list
     author: String, // author info, default blank
     newCard: Boolean, // new card selection, default blank for not new
     archived: Boolean,

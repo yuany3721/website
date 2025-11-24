@@ -25,7 +25,7 @@ const data = reactive({
     text: '点击按钮获取',
 })
 function getRainbow() {
-    let chp = [
+    const chp = [
         '今天也下凡辛苦了',
         '小宝贝今天的美貌也在用心营业呢',
         '会发光的名品美貌',
@@ -533,7 +533,7 @@ function getRainbow() {
     data.text = chp[Math.floor(Math.random() * chp.length)]!
 }
 function getBookName() {
-    let name = new Array(
+    const name = new Array<string>(
         '恨桃',
         '依秋',
         '依波',
@@ -1181,7 +1181,7 @@ function getBookName() {
         '曜栋',
         '文昂',
     )
-    let where = new Array(
+    const where = new Array<string>(
         '历险记',
         '爱恨情仇',
         '笑话',
@@ -1213,7 +1213,7 @@ function getBookName() {
     data.text = sb
 }
 function getName() {
-    let familyNames = new Array(
+    const familyNames = new Array<string>(
         '赵',
         '钱',
         '孙',
@@ -1382,7 +1382,7 @@ function getName() {
         '西门',
         '南宫',
     ) //147
-    let givenNames = new Array(
+    const givenNames = new Array<string>(
         '子璇',
         '淼',
         '国栋',
@@ -1556,14 +1556,14 @@ function getName() {
         '永昌',
     ) //170
 
-    let familyName = familyNames[Math.floor(Math.random() * familyNames.length)]!
-    let givenName = givenNames[Math.floor(Math.random() * givenNames.length)]!
-    let name = familyName + givenName
+    const familyName = familyNames[Math.floor(Math.random() * familyNames.length)]!
+    const givenName = givenNames[Math.floor(Math.random() * givenNames.length)]!
+    const name = familyName + givenName
 
     data.text = name
 }
 function shock1() {
-    let part1 = [
+    const part1 = [
         '震惊！',
         '禽兽！',
         '太不是人了！',
@@ -1577,8 +1577,8 @@ function shock1() {
         '有本事你别看！',
     ]
     getName()
-    let part_name = data.text
-    let part2 = [
+    const part_name = data.text
+    const part2 = [
         '竟深夜推倒六个少女，',
         '久吃不胖的三个秘诀，',
         '隐藏多年的男友终于出现了！',
@@ -1593,7 +1593,7 @@ function shock1() {
         '竟在小树林干不可描述的事…',
         '曾与多名衣衫不整的少女共处一室！',
     ]
-    let part3 = [
+    const part3 = [
         '有图有真相！',
         '你一定要看！',
         '韩红听了都想打人 ...',
@@ -1613,7 +1613,7 @@ function shock1() {
         part3[Math.floor(Math.random() * part3.length)]
 }
 function shock2() {
-    let part1 = [
+    const part1 = [
         '全世界80万人疯传',
         '你不可不知的',
         '立刻分享，',
@@ -1649,7 +1649,7 @@ function shock2() {
         '深度揭秘',
         '史上最强',
     ]
-    let part2 = [
+    const part2 = [
         '不可思议的事实，',
         '致富秘诀，',
         '劲爆的惊险画面，',
@@ -1684,7 +1684,7 @@ function shock2() {
         '医师养生法，',
         '最难以置信的骗术，',
     ]
-    let part3 = [
+    const part3 = [
         '看完后我惊呆了！',
         '真的把我吓傻了！',
         '全世界都崩溃！',
@@ -1728,7 +1728,7 @@ function getShock() {
     else shock2()
 }
 function getVulgarPoet() {
-    let two_char_words = [
+    const two_char_words = [
         '朱砂',
         '天下',
         '杀伐',
@@ -1816,7 +1816,7 @@ function getVulgarPoet() {
         '碧落',
         '紫陌',
     ]
-    let four_char_words = [
+    const four_char_words = [
         '情深缘浅',
         '情深不寿',
         '莫失莫忘',
@@ -1829,7 +1829,7 @@ function getVulgarPoet() {
         '不诉离殇',
         '一世长安',
     ]
-    let sentence_model = [
+    const sentence_model = [
         'xx，xx，xx了xx。',
         'xxxx，xxxx，不过是一场xxxx。',
         '你说xxxx，我说xxxx，最后不过xxxx。',
@@ -1842,16 +1842,16 @@ function getVulgarPoet() {
     let sentence = sentence_model[Math.floor(sentence_model.length * Math.random())]
 
     while (sentence && sentence.indexOf('xxxx') >= 0) {
-        let four_char = four_char_words[Math.floor(four_char_words.length * Math.random())]
+        const four_char = four_char_words[Math.floor(four_char_words.length * Math.random())]
         sentence = sentence.replace('xxxx', four_char!)
     }
     while (sentence && sentence.indexOf('xx') >= 0) {
-        let two_char = two_char_words[Math.floor(two_char_words.length * Math.random())]
+        const two_char = two_char_words[Math.floor(two_char_words.length * Math.random())]
         sentence = sentence.replace('xx', two_char!)
     }
     while (sentence && sentence.indexOf('x') >= 0) {
-        let two_char = two_char_words[Math.floor(two_char_words.length * Math.random())]
-        let one_char = two_char ? two_char[Math.floor(2 * Math.random())] : ''
+        const two_char = two_char_words[Math.floor(two_char_words.length * Math.random())]
+        const one_char = two_char ? two_char[Math.floor(2 * Math.random())] : ''
         sentence = sentence.replace('x', one_char!)
     }
 

@@ -1,19 +1,22 @@
 <template>
     <el-footer class="footer">
         <div class="text">
+            <span>
             互联网ICP备案：
             <el-link type="info" href="http://www.beian.miit.gov.cn/"
                 >鄂ICP备2022017895号-1
             </el-link>
-        </div>
-        <div class="text">
-            公安联网备案：
+            </span>
+            <span>
+                公安联网备案：
             <el-link
                 type="info"
                 href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011102005054"
             >
                 <img src="../assets/beian.png" /> 鄂公网安备 42011102005054号
             </el-link>
+            </span>
+            
         </div>
         <div class="text">
             <el-link type="info" href="http://jubao.py.cnhubei.com/">

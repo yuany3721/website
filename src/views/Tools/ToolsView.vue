@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import PlateLoc from './PlateLoc/PlateLoc.vue'
-import NumberConverter from './NumberConverter.vue'
-import ConvTab from './ConvTab/ConvTab.vue'
-import Gadget from './Gadget.vue'
+import PlateLoc from './PlateLoc/PlateLocTool.vue'
+import NumberConverter from './NumberConverterTool.vue'
+import ConvTab from './ConvTab/ConvTool.vue'
+import Gadget from './GadgetTool.vue'
 import { fetchBackgroundImageUrl } from '@/global'
 fetchBackgroundImageUrl()
 </script>

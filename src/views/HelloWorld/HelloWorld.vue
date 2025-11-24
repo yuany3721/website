@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Card from './CardsMain/Card.vue'
+import Card from './CardsMain/HelloCard.vue'
 import { fetchBackgroundImageUrl } from '@/global'
 fetchBackgroundImageUrl()
 </script>

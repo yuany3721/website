@@ -46,7 +46,7 @@ import { getFirstName } from './Province'
 import CardView from '../../../components/CardView.vue'
 
 function onchange() {
-    var s: string = province.value + input.value
+    let s: string = province.value + input.value
     s = s.toLocaleUpperCase()
     infotext.value = getFirstName(s.split('')).toString().replace(',', ' ')
 }
