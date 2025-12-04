@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Card from './CardsMain/HelloCard.vue'
+import Card from './HelloCard.vue'
 import { fetchBackgroundImageUrl } from '@/global'
 fetchBackgroundImageUrl()
 </script>
@@ -9,8 +9,8 @@ fetchBackgroundImageUrl()
         <el-main class="card-wrap">
             <Card
                 title="随记"
-                message="<p>简洁方便的随手记工具，支持Tag标记、模糊搜索</p>"
-                :techs="['Vite', 'Vue3', 'TypeScripts']"
+                message="<p>简洁方便的随手记工具，支持Markdown预览、Tag标记、模糊搜索</p>"
+                :techs="['Vue', 'TypeScript', 'Python', 'FastAPI']"
                 href="https://yuany3721.site/note"
                 start="2025.11"
                 newCard
@@ -26,7 +26,7 @@ fetchBackgroundImageUrl()
                 archived
             />
             <Card
-                title="Vuepress-reco-yuany3721"
+                title="vuepress-yuany3721"
                 message="<p>一个使用VuePress搭建的静态博客，支持katex数学公式。</p>
                 <p>主题魔改自优秀的<a href='https://vuepress-theme-reco.recoluan.com/'>Vuepress-theme-reco</a>。</p>
                 <p>2024.12迁移主题至<a href='https://theme-plume.vuejs.press/'>vuepress-theme-plume</a></p>"
@@ -41,16 +41,18 @@ fetchBackgroundImageUrl()
                 :techs="['LDA算法', 'Vue', 'Spring']"
                 start="2021.04毕业设计"
                 stop="由于相关平台爬取规则改变等原因，平台demo于2021年9月暂停展示"
+                archived
             />
             <Card
                 title="培训班作业管理系统"
-                message="<p>一个由jsp实现的管理信息系统。</p>
+                message="<p>一个基于jsp实现的管理信息系统。</p>
                 <p>系统含有管理员、教师、学生三种角色，实现了人员、课程、作业等实体增删改查等功能的呈现。</p>"
                 :techs="['jsp']"
-                author="董怡婷 刘艺瀛 阳灵鑫 李承霖"
                 start="2020.12《信息系统设计与开发》"
                 stop="由于服务器迁移，于2022.12停止服务"
+                archived
             />
+            <!-- author="董怡婷 刘艺瀛 阳灵鑫 李承霖" -->
             <Card
                 title="在线协同标注平台"
                 message="<p>为《公共卫生突发事件网络评论的细粒度情感分类》提供数据支持。</p>
@@ -58,10 +60,11 @@ fetchBackgroundImageUrl()
                 <p>通过合理的推送算法和缓存方式，在测试中平台支持不超过百人规模的在线标注实验。</p>
                 <p><small>相关论文发表于《情报杂志》2020年12月增</small></p>"
                 :techs="['Python', 'Spring']"
-                author="李承霖 阳灵鑫 董怡婷 孙丽晨 杜鸿伦 由丽萍"
                 start="2020.04"
                 stop="由于语料具有与社会环境强关联的时效性，于2021.07关闭平台"
+                archived
             />
+            <!-- author="李承霖 阳灵鑫 董怡婷 孙丽晨 杜鸿伦 由丽萍" -->
             <Card
                 title="用户权限管理"
                 message="<p>一个没啥用的用户权限控制。</p>
@@ -79,6 +82,7 @@ fetchBackgroundImageUrl()
                 :techs="['双向最大匹配', '布尔逻辑检索', 'Vue', 'Spring']"
                 start="2020.01《信息组织、存储与检索》"
                 stop="由于服务器迁移，于2022.12停止服务"
+                archived
             />
             <Card
                 title="物联网简介"
@@ -101,9 +105,9 @@ fetchBackgroundImageUrl()
             <Card
                 title="文件管理系统"
                 message="<p>一个没啥用的文件管理系统。</p>
-                <p>提供了文件上传、下载及相关统计功能。</p>
-                <p><small>为什么不直接搭一个网盘呢</small></p>"
+                <p>提供了文件上传、下载及相关统计功能。</p>"
                 start="2019.11"
+                stop="为什么不直接搭一个网盘呢"
                 archived
             />
             <Card
@@ -116,24 +120,19 @@ fetchBackgroundImageUrl()
                 href="http://glxxxt.yuany3721.top"
                 start="2019.10《管理信息系统》"
                 stop="由于服务器迁移，于2022.12停止服务"
+                archived
             />
         </el-main>
     </el-container>
 </template>
 
 <style scoped>
-.footer {
-    margin: 0;
-    padding: 0;
-    height: auto !important;
-    display: flex;
-    opacity: 0.8;
-}
-
 .card-wrap {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    max-width: 1920px;
+    margin: auto;
 }
 </style>

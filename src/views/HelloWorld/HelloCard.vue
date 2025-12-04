@@ -1,12 +1,27 @@
 <template>
     <el-card
-        :class="archived || (stop?.length != undefined && stop?.length > 1) ? 'card archived' : 'card'"
+        :class="
+            archived || (stop?.length != undefined && stop?.length > 1) ? 'card archived' : 'card'
+        "
         @click="open"
     >
         <template #header>
-            <div :class="newCard ? 'card-header new' : 'card-header'">
+            <div
+                :class="
+                    newCard
+                        ? 'card-header card-header-new'
+                        : archived
+                          ? 'card-header card-header-archived'
+                          : 'card-header'
+                "
+            >
                 <template v-if="newCard">
-                    <svg height="1em" width="1em" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                        height="1em"
+                        width="1em"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
                         <path
                             fill="#2172f3"
                             d="M512 64h64v192h-64V64zm0 576h64v192h-64V640zM160 480v-64h192v64H160zm576 0v-64h192v64H736zM249.856 199.04l45.248-45.184L430.848 289.6 385.6 334.848 249.856 199.104zM657.152 606.4l45.248-45.248 135.744 135.744-45.248 45.248L657.152 606.4zM114.048 923.2 68.8 877.952l316.8-316.8 45.248 45.248-316.8 316.8zM702.4 334.848 657.152 289.6l135.744-135.744 45.248 45.248L702.4 334.848z"
@@ -35,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { toRefs } from 'vue'
 
 const props = defineProps({
     title: String, // card header
@@ -47,24 +62,24 @@ const props = defineProps({
     author: String, // author info, default blank
     newCard: Boolean, // new card selection, default blank for not new
     archived: Boolean,
-});
+})
 function open(event: MouseEvent) {
-    if ((event.target as HTMLElement).tagName === "A") {
-        event.preventDefault();
-        const href = (event.target as HTMLElement)?.getAttribute("href");
+    if ((event.target as HTMLElement).tagName === 'A') {
+        event.preventDefault()
+        const href = (event.target as HTMLElement)?.getAttribute('href')
         if (href) {
-            window.open(href);
+            window.open(href)
         }
-        return; // 阻止冒泡
+        return // 阻止冒泡
     }
-    if (props.href?.length == undefined || props.href?.length < 1) return;
-    if (props.archived || (props.stop?.length != undefined && props.stop?.length > 1)) return;
-    window.open(props.href);
+    if (props.href?.length == undefined || props.href?.length < 1) return
+    if (props.archived || (props.stop?.length != undefined && props.stop?.length > 1)) return
+    window.open(props.href)
     // console.log(props.href);
 }
 // console.log(props.title, props.archived);
 
-const { title, message, newCard, start, stop, author, techs, archived } = toRefs(props);
+const { title, message, newCard, start, stop, author, techs, archived } = toRefs(props)
 </script>
 
 <style scoped>
@@ -73,13 +88,14 @@ const { title, message, newCard, start, stop, author, techs, archived } = toRefs
     margin: 10px;
     cursor: pointer;
     opacity: 0.9;
+    border-radius: 1rem;
 }
 .archived {
     cursor: default !important;
-    opacity: 0.7;
+    opacity: 0.75;
 }
 .archived:hover {
-    box-shadow: 0 1px 8px 0 #666 !important;
+    box-shadow: 0 1px 8px 0 #4775ff !important;
     transition: 0.5s;
 }
 .card:hover {
@@ -91,13 +107,20 @@ const { title, message, newCard, start, stop, author, techs, archived } = toRefs
     display: flex;
     align-content: center;
     line-height: 1em;
+    color: rgb(33, 114, 243);
+}
+.card-header-new {
+    color: rgb(33, 114, 243);
+}
+.card-header-archived {
+    color: rgba(0, 0, 0, 0.75);
 }
 .card .author {
     font-size: smaller;
 }
 .card-message {
     margin: 0;
-    font-family: "element-icons";
+    font-family: 'element-icons';
 }
 .card-message:deep(p) {
     margin: 0 0 0.3em 0;
@@ -108,7 +131,7 @@ const { title, message, newCard, start, stop, author, techs, archived } = toRefs
     color: #2172f3;
 }
 .card-message:deep(small) {
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.75);
 }
 .card-message:deep(a:hover) {
     color: #1b0ff5;
@@ -116,9 +139,6 @@ const { title, message, newCard, start, stop, author, techs, archived } = toRefs
 .card-message:deep(ul) {
     margin: 0;
     padding-left: 20px;
-}
-.new {
-    color: #2172f3;
 }
 .tag-container {
     display: inline-flex;

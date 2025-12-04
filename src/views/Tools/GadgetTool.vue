@@ -16,14 +16,12 @@
 <script setup lang="ts">
 import { fetchBackgroundImageUrl } from '@/global'
 fetchBackgroundImageUrl()
-import { ElMessage } from 'element-plus'
+import clipboard3 from 'vue-clipboard3'
 import CardView from '@/components/CardView.vue'
-import { reactive, toRefs } from 'vue'
 // import { ElMessage } from "element-plus";
 // import "element-plus/lib/theme-chalk/el-message.css";
-const data = reactive({
-    text: '点击按钮获取',
-})
+const text = ref('点击按钮获取')
+const { toClipboard } = clipboard3()
 function getRainbow() {
     const chp = [
         '今天也下凡辛苦了',
@@ -530,7 +528,7 @@ function getRainbow() {
         '希望你的开心里有我希望你的心里有我希望你有我',
     ]
 
-    data.text = chp[Math.floor(Math.random() * chp.length)]!
+    text.value = chp[Math.floor(Math.random() * chp.length)]!
 }
 function getBookName() {
     const name = new Array<string>(
@@ -1210,7 +1208,7 @@ function getBookName() {
     }
     sb += '的'
     sb += where[Math.floor(Math.random() * where.length)]
-    data.text = sb
+    text.value = sb
 }
 function getName() {
     const familyNames = new Array<string>(
@@ -1560,7 +1558,7 @@ function getName() {
     const givenName = givenNames[Math.floor(Math.random() * givenNames.length)]!
     const name = familyName + givenName
 
-    data.text = name
+    text.value = name
 }
 function shock1() {
     const part1 = [
@@ -1577,7 +1575,7 @@ function shock1() {
         '有本事你别看！',
     ]
     getName()
-    const part_name = data.text
+    const part_name = text.value
     const part2 = [
         '竟深夜推倒六个少女，',
         '久吃不胖的三个秘诀，',
@@ -1606,7 +1604,7 @@ function shock1() {
         '简直不敢相信！',
         '不轻易分享出来！',
     ]
-    data.text =
+    text.value =
         part1[Math.floor(Math.random() * part1.length)] +
         part_name +
         part2[Math.floor(Math.random() * part2.length)] +
@@ -1718,7 +1716,7 @@ function shock2() {
         '强烈推荐！',
         '有图有真相！',
     ]
-    data.text =
+    text.value =
         part1[Math.floor(Math.random() * part1.length)]! +
         part2[Math.floor(Math.random() * part2.length)]! +
         part3[Math.floor(Math.random() * part3.length)]!
@@ -1855,18 +1853,23 @@ function getVulgarPoet() {
         sentence = sentence.replace('x', one_char!)
     }
 
-    data.text = sentence ? sentence : ''
+    text.value = sentence ? sentence : ''
 }
-function copy() {
-    navigator.clipboard.writeText(data.text).then(() => {
+async function copy() {
+    try {
+        await toClipboard(text.value)
+    } catch (error) {
+        ElMessage({
+            type: 'error',
+            message: '复制失败',
+        })
+    } finally {
         ElMessage({
             type: 'success',
             message: '复制成功',
         })
-    })
+    }
 }
-
-const { text } = toRefs(data)
 </script>
 
 <style scoped>
