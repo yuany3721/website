@@ -49,7 +49,7 @@ const filterLoading = ref(false)
 const totalNotes = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(20)
-const mdTextAreaRef = ref<HTMLTextAreaElement|null>()
+const mdTextAreaRef = ref<HTMLTextAreaElement | null>()
 const noteDialogConfig = reactive<NoteDialogConfig>({
     visible: false,
     content: '',
@@ -60,7 +60,6 @@ const noteDialogConfig = reactive<NoteDialogConfig>({
     loading: false,
     mdPreviewShow: true,
 })
-
 
 function getTableDataByPage(
     pageNum: number,

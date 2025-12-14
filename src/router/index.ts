@@ -17,8 +17,13 @@ const router = createRouter({
     },
     {
       path: '/tools',
-      name: 'cost',
+      name: 'tools',
       component: () => import('@/views/Tools/ToolsView.vue'),
+    },
+    {
+      path: '/cost',
+      name: 'cost',
+      component: () => import('@/views/CostView.vue'),
     },
     {
       path: "/cv",
