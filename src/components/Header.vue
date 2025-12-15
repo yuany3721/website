@@ -12,7 +12,7 @@
                 <el-link href="./"> 首页 </el-link>
                 <el-link href="https://blog.yuany3721.site/"> 博客 </el-link>
                 <el-link href="/note"> 随记 </el-link>
-                <!-- <el-link href="/gadget"> 小玩意 </el-link> -->
+                <el-link href="/cost"> 归物 </el-link>
                 <el-link href="/tools"> 工具 </el-link>
             </div>
         </el-main>

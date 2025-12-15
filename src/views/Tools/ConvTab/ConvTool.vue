@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import PowerConv from "./PowerConv.vue";
+import PowerConv from './PowerConv.vue'
 </script>
 
 <style scoped>

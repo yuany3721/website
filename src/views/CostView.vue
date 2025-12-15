@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import AuthLoading from '@/components/AuthLoading.vue'
+import { authService } from '../Auth'
+import { useAuthStore } from '../stores/auth'
+import Cookies from 'js-cookie'
 import { format } from 'date-fns'
 import axios from 'axios'
 const apiBase = import.meta.env.VITE_API_BASE
+
+const authorized = ref(false)
+const authStore = useAuthStore()
 
 interface Item {
     id: number
@@ -15,32 +22,23 @@ interface Item {
     notes: string
 }
 
-const items = ref<Item[]>([
-    {
-        id: 1,
-        name: 'Item 1',
-        price: 10235,
-        start_at: '2022-01-01',
-        till_now: 79,
-        inuse: false,
-        discontinued_at: '2022-02-01',
-        discontinued_price: 5,
-        notes: 'Item 1 notes',
-    },
-    {
-        id: 2,
-        name: 'Item 2',
-        price: 20,
-        start_at: '2022-02-01',
-        till_now: 2010,
-        inuse: true,
-        discontinued_at: '',
-        discontinued_price: 0,
-        notes: 'Item 2 notes',
-    },
-])
+const items = ref<Item[]>([])
 
-const headerInfo = {}
+// computed header info
+const headerInfo = computed(() => {
+    return {
+        total: items.value.length,
+        inuse: items.value.filter((item) => item.inuse).length,
+        notInuse: items.value.filter((item) => !item.inuse).length,
+        totalCost: items.value.reduce((acc, item) => acc + item.price, 0),
+        totalCostInuse: items.value
+            .filter((item) => item.inuse)
+            .reduce((acc, item) => acc + item.price, 0),
+        costPerDay: items.value
+            .filter((item) => item.inuse)
+            .reduce((acc, item) => acc + (item.till_now > 0 ? item.price / item.till_now : 0), 0),
+    }
+})
 
 const showNotInuse = ref(false)
 
@@ -56,13 +54,9 @@ const handleCardClick = (item: Item) => {
     itemDialogConfig.visible = true
 }
 const handleDialogClose = (done: () => void) => {
-    ElMessageBox.confirm('Close without saving?')
-        .then(() => {
-            done()
-        })
-        .catch(() => {
-            // catch error
-        })
+    ElMessageBox.confirm('放弃修改？').then(() => {
+        done()
+    })
 }
 const handleItemNew = () => {
     itemDialogConfig.loading = true
@@ -86,28 +80,8 @@ const handleItemChange = () => {
     console.log('Item changed', itemDialogConfig.item_info)
 
     if (itemDialogConfig.item_info.id === -1) {
-        /*    name: str
-    price: str = "0"
-    start_at: datetime = None
-    discontinued_at: datetime = None
-    discontinued_price: str = "0"
-    notes: str = "" */
-        console.log('Creating new item')
-        console.log(itemDialogConfig.item_info.name, typeof itemDialogConfig.item_info.name)
-        console.log(
-            itemDialogConfig.item_info.price.toFixed(2),
-            typeof itemDialogConfig.item_info.price.toFixed(2),
-        )
-        console.log(itemDialogConfig.item_info.start_at, typeof itemDialogConfig.item_info.start_at)
-        console.log(
-            itemDialogConfig.item_info.discontinued_at,
-            typeof itemDialogConfig.item_info.discontinued_at,
-        )
-        console.log(
-            itemDialogConfig.item_info.discontinued_price.toFixed(2),
-            typeof itemDialogConfig.item_info.discontinued_price.toFixed(2),
-        )
-        console.log(itemDialogConfig.item_info.notes, typeof itemDialogConfig.item_info.notes)
+        // id == -1 新建item
+        // console.log('Creating new item')
         axios
             .post(`${apiBase}/item_track/create_item`, {
                 name: itemDialogConfig.item_info.name,
@@ -118,19 +92,43 @@ const handleItemChange = () => {
                 notes: itemDialogConfig.item_info.notes,
             })
             .then((response) => {
-                console.error(response.data)
-                itemDialogConfig.item_info.id = response.data
-                const newItem = JSON.parse(JSON.stringify(itemDialogConfig.item_info))
-                // items.value.push(newItem)
-                // push new item to top
-                items.value.unshift(newItem)
+                if (response.data) {
+                    axios
+                        .get(`${apiBase}/item_track/get_item/${response.data}`)
+                        .then((response) => {
+                            console.log('get_item', response.data)
+                            items.value.unshift(response.data)
+                        })
+                    // items.value.unshift(response.data)
+                }
             })
     } else {
-        // Existing item logic
-        const index = items.value.findIndex((it) => it.id === itemDialogConfig.item_info.id)
-        if (index !== -1) {
-            items.value[index] = JSON.parse(JSON.stringify(itemDialogConfig.item_info))
-        }
+        // console.log('Updating existing item')
+        axios
+            .post(`${apiBase}/item_track/update_item`, {
+                id: itemDialogConfig.item_info.id,
+                name: itemDialogConfig.item_info.name,
+                price: itemDialogConfig.item_info.price.toFixed(2),
+                start_at: itemDialogConfig.item_info.start_at,
+                discontinued_at: itemDialogConfig.item_info.discontinued_at,
+                discontinued_price: itemDialogConfig.item_info.discontinued_price.toFixed(2),
+                notes: itemDialogConfig.item_info.notes,
+                inuse: itemDialogConfig.item_info.inuse,
+            })
+            .then((response) => {
+                if (response.data) {
+                    // update item in items array
+                    const index = items.value.findIndex(
+                        (item) => item.id === itemDialogConfig.item_info.id,
+                    )
+
+                    axios
+                        .get(`${apiBase}/item_track/get_item/${itemDialogConfig.item_info.id}`)
+                        .then((response) => {
+                            items.value[index] = response.data
+                        })
+                }
+            })
     }
 
     itemDialogConfig.loading = false
@@ -139,24 +137,119 @@ const handleItemChange = () => {
 
 const handleItemDelete = () => {
     itemDialogConfig.loading = true
-    console.log('Item deleted', itemDialogConfig.item_info)
+    // console.log('Item deleted', itemDialogConfig.item_info)
+    // console.log(
+    //     'Deleting item id',
+    //     itemDialogConfig.item_info.id,
+    //     typeof itemDialogConfig.item_info.id,
+    // )
+    axios
+        .post(`${apiBase}/item_track/delete_item`, {
+            id: itemDialogConfig.item_info.id,
+        })
+        .then((response) => {
+            if (response.data) {
+                // remove item from items array
+                const index = items.value.findIndex(
+                    (item) => item.id === itemDialogConfig.item_info.id,
+                )
+                if (index !== -1) {
+                    items.value.splice(index, 1)
+                }
+            }
+        })
     itemDialogConfig.loading = false
     itemDialogConfig.visible = false
 }
 
-onMounted(async () => {
+const get_all_items = async () => {
     await axios.get(`${apiBase}/item_track/get_all_items`).then((response) => {
-        console.error(response.data)
-        console.log('items', items)
+        // console.error(response.data)
+        // console.log('items', items)
         items.value.push(...response.data)
-        console.log('done')
+        // console.log('done')
     })
+}
+
+onMounted(async () => {
+    const queryString = window.location.search.split('?')[1]
+    if (queryString && queryString.includes('token=')) {
+        const token = queryString.split('token=')[1]?.split('&')[0] ?? null
+        Cookies.set('token', token || '', { expires: 7 })
+        // console.log('从URL获取token:', token);
+        window.location.href = window.location.href.split('?')[0] ?? window.location.href
+    }
+
+    if (authStore.token) {
+        const valid = await authService.validateAuth()
+        if (
+            valid &&
+            authStore.userInfo.groups.includes('Home') &&
+            authStore.userInfo.name.length > 0
+        ) {
+            // console.log('token有效');
+            authorized.value = true
+        } else {
+            // console.log('token无效');
+            authorized.value = false
+        }
+    } else {
+        // console.log('无token');
+        authorized.value = false
+    }
+
+    if (!authorized.value) {
+        try {
+            await authService.startLogin(window.location.href)
+        } catch (error) {
+            console.error('login err:', error)
+        }
+    } else {
+        get_all_items()
+    }
 })
 </script>
 
 <template>
-    <el-container class="cost-container">
-        <el-header>Header</el-header>
+    <AuthLoading v-if="!authorized" />
+    <el-container class="cost-container" v-else>
+        <el-header>
+            <el-row :gutter="5" class="header-row">
+                <el-col :span="8" :offset="2">
+                    <el-statistic
+                        title="总资产"
+                        :value="headerInfo.totalCost"
+                        :precision="2"
+                        prefix="¥"
+                    />
+                </el-col>
+                <el-col :span="4">
+                    <el-statistic title="使用中资产" :value="headerInfo.inuse" />
+                </el-col>
+                <el-col :span="4">
+                    <el-statistic title="已退役资产" :value="headerInfo.notInuse" />
+                </el-col>
+            </el-row>
+            <el-row class="header-row" :gutter="5">
+                <el-col :span="8" :offset="2">
+                    <el-statistic
+                        title="使用中总资产"
+                        :value="headerInfo.totalCostInuse"
+                        :precision="2"
+                        prefix="¥"
+                    />
+                </el-col>
+                <el-col :span="8">
+                    <el-statistic
+                        title="日均花费"
+                        :value="headerInfo.costPerDay"
+                        :precision="2"
+                        prefix="¥"
+                    />
+                </el-col>
+            </el-row>
+        </el-header>
+
         <el-main>
             <div class="main-header">
                 <el-switch
@@ -174,7 +267,7 @@ onMounted(async () => {
             <el-card
                 v-for="item in items"
                 :key="item.id"
-                class="cost-card"
+                :class="'cost-card ' + (item.inuse ? 'inuse-card' : 'notinuse-card')"
                 @click="handleCardClick(item)"
                 v-show="showNotInuse ? true : item.inuse"
             >
@@ -185,8 +278,10 @@ onMounted(async () => {
                         </el-row>
                         <el-row>
                             <el-col :span="10" class="cost-start">
-                                {{ item.start_at.replace('T', ' ').split('.')[0] }}
-                                <template v-if="!item.inuse">~ {{ item.discontinued_at }}</template>
+                                {{ item.start_at.split('T')[0] }}
+                                <template v-if="!item.inuse"
+                                    >~ {{ item.discontinued_at.split('T')[0] }}</template
+                                >
                             </el-col>
                             <el-col :span="7" class="cost-price">
                                 ¥ {{ Number(item.price).toFixed(2) }}
@@ -198,7 +293,9 @@ onMounted(async () => {
                         <!-- <p>Notes: {{ item.notes }}</p> -->
                     </el-splitter-panel>
                     <el-splitter-panel size="20%" class="cost-days-panel">
-                        <div class="cost-days">{{ item.till_now }} 天</div>
+                        <div class="cost-days">
+                            <span v-if="!item.inuse">已退役</span>{{ item.till_now }} 天
+                        </div>
                     </el-splitter-panel>
                 </el-splitter>
             </el-card>
@@ -212,11 +309,11 @@ onMounted(async () => {
         <div v-loading="itemDialogConfig.loading"></div>
 
         <el-form>
-            <el-form-item label="Name" label-width="8em">
+            <el-form-item label="名称" label-width="8em">
                 <el-input v-model="itemDialogConfig.item_info.name" />
             </el-form-item>
 
-            <el-form-item label="price" label-width="8em">
+            <el-form-item label="价格" label-width="8em">
                 <el-input-number
                     v-model="itemDialogConfig.item_info.price"
                     :precision="2"
@@ -228,13 +325,12 @@ onMounted(async () => {
                 </el-input-number>
             </el-form-item>
 
-            <el-form-item label="start_at" label-width="8em">
+            <el-form-item label="购买日期" label-width="8em">
                 <el-date-picker
                     v-model="itemDialogConfig.item_info.start_at"
-                    type="datetime"
-                    placeholder="DateTime"
-                    format="YYYY/MM/DD HH:mm:ss"
-                    value-format="x"
+                    type="date"
+                    format="YYYY-MM-DD"
+                    value-format="YYYY-MM-DD"
                     :disabled="itemDialogConfig.loading"
                 />
             </el-form-item>
@@ -246,49 +342,72 @@ onMounted(async () => {
                 />
             </el-form-item>
             <template v-if="!itemDialogConfig.item_info.inuse">
-                <el-form-item label="discontinued_at" label-width="8em">
+                <el-form-item label="退役日期" label-width="8em">
                     <el-date-picker
-                        v-model="itemDialogConfig.item_info.start_at"
-                        type="datetime"
-                        placeholder="DateTime"
-                        format="YYYY/MM/DD HH:mm:ss"
-                        value-format="x"
+                        v-model="itemDialogConfig.item_info.discontinued_at"
+                        type="date"
+                        format="YYYY-MM-DD"
+                        value-format="YYYY-MM-DD"
                         :disabled="itemDialogConfig.loading"
                     />
                 </el-form-item>
 
-                <el-form-item label="discontinued_price" label-width="8em">
+                <el-form-item label="残值" label-width="8em">
                     <el-input v-model="itemDialogConfig.item_info.discontinued_price" />
                 </el-form-item>
             </template>
 
-            <el-form-item label="notes" label-width="8em">
+            <el-form-item label="备注" label-width="8em">
                 <el-input type="textarea" v-model="itemDialogConfig.item_info.notes" />
             </el-form-item>
         </el-form>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="itemDialogConfig.visible = false">Cancel</el-button>
+                <el-button @click="itemDialogConfig.visible = false">取消</el-button>
                 <el-button
                     type="danger"
                     @click="handleItemDelete"
                     v-show="itemDialogConfig.item_info.id > 0"
-                    >Delete</el-button
+                    >删除</el-button
                 >
-                <el-button type="primary" @click="handleItemChange"> Confirm </el-button>
+                <el-button type="primary" @click="handleItemChange"> 确认 </el-button>
             </div>
         </template>
     </el-dialog>
 </template>
 
 <style scoped>
+.el-header {
+    display: contents;
+}
+.header-row {
+    margin: 1em 0 0 0;
+}
+.el-statistic:deep(.el-statistic__head) {
+    font-size: large;
+    font-weight: bold;
+    color: rgb(51, 126, 204);
+}
+.el-statistic:deep(.el-statistic__content) {
+    font-weight: bold;
+    color: #409eff;
+}
+.el-main {
+    padding: 10px;
+}
 .cost-container {
-    max-width: 1024px;
+    max-width: 720px;
     margin: auto;
 }
 .cost-card {
     margin: 5px;
     border-radius: 1em;
+}
+.inuse-card {
+    background-color: rgb(160, 207, 255);
+}
+.notinuse-card {
+    background-color: lightgray;
 }
 .cost-name {
     font-size: larger;
